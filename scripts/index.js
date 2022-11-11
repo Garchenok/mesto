@@ -13,12 +13,11 @@ function openPopup() {
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
 }
-editButton.addEventListener("click", openPopup);
+
 // закрыть попап
 function closePopup() {
   popupElement.classList.remove("popup_opened");
 }
-closeButton.addEventListener("click", closePopup);
 
 // редактировать и сохранять информацию в попап
 // информация не сохраняется между перезагрузками страницы
@@ -28,4 +27,8 @@ function formSubmitHandler(evt) {
   userJob.textContent = jobInput.value;
   closePopup();
 }
+
+// слушатели
+editButton.addEventListener("click", openPopup);
+closeButton.addEventListener("click", closePopup);
 popupForm.addEventListener("submit", formSubmitHandler);
