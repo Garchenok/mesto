@@ -24,15 +24,24 @@
             <div class="profile__info">
               <div class="profile__title-container">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button" type="button"></button>
+                <button
+                  class="profile__edit-button"
+                  type="button"
+                  title="Редактировать"
+                ></button>
               </div>
               <p class="profile__subtitle">Исследователь океана</p>
             </div>
           </div>
-          <button class="profile__add-button" type="button"></button>
+          <button
+            class="profile__add-button"
+            type="button"
+            title="Добавить"
+          ></button>
         </section>
         <section class="elements">
           <ul class="elements__list">
+            <!--
             <li class="element">
               <img
                 class="element__image"
@@ -41,7 +50,11 @@
               />
               <div class="element__info">
                 <h2 class="element__title">Карачаевск</h2>
-                <button class="element__like-button" type="button"></button>
+                <button
+                  class="element__like-button"
+                  type="button"
+                  title="Нравится"
+                ></button>
               </div>
             </li>
             <li class="element">
@@ -52,7 +65,11 @@
               />
               <div class="element__info">
                 <h2 class="element__title">Гора Эльбрус</h2>
-                <button class="element__like-button" type="button"></button>
+                <button
+                  class="element__like-button"
+                  type="button"
+                  title="Нравится"
+                ></button>
               </div>
             </li>
             <li class="element">
@@ -63,7 +80,11 @@
               />
               <div class="element__info">
                 <h2 class="element__title">Домбай</h2>
-                <button class="element__like-button" type="button"></button>
+                <button
+                  class="element__like-button"
+                  type="button"
+                  title="Нравится"
+                ></button>
               </div>
             </li>
             <li class="element">
@@ -74,7 +95,11 @@
               />
               <div class="element__info">
                 <h2 class="element__title">Гора Эльбрус</h2>
-                <button class="element__like-button" type="button"></button>
+                <button
+                  class="element__like-button"
+                  type="button"
+                  title="Нравится"
+                ></button>
               </div>
             </li>
             <li class="element">
@@ -85,7 +110,11 @@
               />
               <div class="element__info">
                 <h2 class="element__title">Домбай</h2>
-                <button class="element__like-button" type="button"></button>
+                <button
+                  class="element__like-button"
+                  type="button"
+                  title="Нравится"
+                ></button>
               </div>
             </li>
             <li class="element">
@@ -96,18 +125,27 @@
               />
               <div class="element__info">
                 <h2 class="element__title">Карачаево-Черкесия</h2>
-                <button class="element__like-button" type="button"></button>
+                <button
+                  class="element__like-button"
+                  type="button"
+                  title="Нравится"
+                ></button>
               </div>
-            </li>
+            </li> -->
           </ul>
         </section>
       </main>
       <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
-      <section class="popup">
+      <!--Попап для редактирования профиля-->
+      <section class="popup popup_profile">
         <div class="popup__container">
-          <button class="popup__close-button" type="button"></button>
+          <button
+            class="popup__close-button"
+            type="button"
+            title="Закрыть"
+          ></button>
           <h2 class="popup__title">Редактировать профиль</h2>
           <form class="popup__form" name="popup-form">
             <input
@@ -122,13 +160,80 @@
               name="userJob"
               placeholder="Ваша работа"
             />
-            <button class="popup__submit-button" type="submit">
+            <button
+              class="popup__submit-button"
+              type="submit"
+              title="Сохранить"
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </section>
+      <!--Попап для добавления карточек-->
+      <section class="popup popup_card">
+        <div class="popup__container">
+          <button
+            class="popup__close-button"
+            type="button"
+            title="Закрыть"
+          ></button>
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__form popup__form_card" name="popup-form-card">
+            <input
+              class="popup__input popup__input_type_card-name"
+              type="text"
+              name="name"
+              placeholder="Название"
+            />
+            <input
+              class="popup__input popup__input_type_card-link"
+              type="url"
+              name="link"
+              placeholder="Ссылка на картинку"
+            />
+            <button
+              class="popup__submit-button"
+              type="submit"
+              title="Сохранить"
+            >
               Сохранить
             </button>
           </form>
         </div>
       </section>
     </div>
-    <script src="./scripts/index.js"></script>
+    <!--Попап для для просмотра изображения-->
+    <section class="popup popup_image">
+      <figure class="popup__container popup__container_image">
+        <button
+          class="popup__close-button popup__close-button_image"
+          type="button"
+          title="Закрыть"
+        ></button>
+        <img class="popup__image" src="#" alt="" />
+        <figcaption class="popup__figcaption"></figcaption>
+      </figure>
+    </section>
+    <!--Темплейт для массива карточек-->
+    <template id="element-template">
+      <li class="element">
+        <button
+          class="element__delete-button"
+          type="button"
+          title="Удалить"
+        ></button>
+        <img class="element__image" src="#" alt="" />
+        <div class="element__info">
+          <h2 class="element__title"></h2>
+          <button
+            class="element__like-button"
+            type="button"
+            title="Нравится"
+          ></button>
+        </div>
+      </li>
+    </template>
+    <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>

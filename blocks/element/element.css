@@ -2,4 +2,5 @@
   border-radius: 10px;
   overflow: hidden;
   width: 282px;
+  position: relative;
 }
