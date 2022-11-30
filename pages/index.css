@@ -41,5 +41,5 @@
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/_image/popup_image.css);
-@import url(../blocks/popup/__container/_image/popup__container_image.css);
+@import url(../blocks/popup/__container-image/popup__container-image.css);
 @import url(../blocks/popup/__figcaption/popup__figcaption.css);
