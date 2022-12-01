@@ -1,14 +1,15 @@
-import initialCards from "./arrays.js";
+import initialCards from "./constants.js";
 
-const editButton = document.querySelector(".profile__edit-button");
+const buttonOpenEditProfilePopup = document.querySelector(
+  ".profile__edit-button"
+);
 const popupElement = document.querySelector(".popup_profile");
-const popup = document.querySelectorAll(".popup");
-const closeButton = document.querySelectorAll(".popup__close-button");
+const buttonsClosePopup = document.querySelectorAll(".popup__close-button");
 const userName = document.querySelector(".profile__title");
 const userJob = document.querySelector(".profile__subtitle");
-const popupForm = document.querySelector(".popup__form");
-const nameInput = popupForm.querySelector(".popup__input_type_name");
-const jobInput = popupForm.querySelector(".popup__input_type_job");
+const formEditProfile = document.querySelector(".popup__form");
+const nameInput = formEditProfile.querySelector(".popup__input_type_name");
+const jobInput = formEditProfile.querySelector(".popup__input_type_job");
 // для карточек
 const elementsList = document.querySelector(".elements__list");
 const elementTemplate = document
@@ -16,7 +17,7 @@ const elementTemplate = document
   .content.querySelector(".element");
 const popupElementCard = document.querySelector(".popup_card");
 const popuFormCard = popupElementCard.querySelector(".popup__form_card");
-const addButton = document.querySelector(".profile__add-button");
+const buttonOpenAddCardPopup = document.querySelector(".profile__add-button");
 const popupInputTypeCardName = popupElementCard.querySelector(
   ".popup__input_type_card-name"
 );
@@ -93,7 +94,7 @@ function handleFormSubmitCard(evt) {
   };
   renderElement(elementCard, elementsList);
   popuFormCard.reset(); //сброс полей импутов
-  closePopup();
+  closePopup(popupElementCard);
 }
 
 // ф-ия для открытия всех попапов
@@ -102,38 +103,38 @@ function openPopup(popup) {
 }
 
 // закрытие всех попапов
-function closePopup() {
-  popup.forEach((popupAll) => {
-    popupAll.classList.remove("popup_opened");
-  });
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
 }
 
 // редактировать и сохранять информацию в попап
 // информация не сохраняется между перезагрузками страницы
-function formSubmitHandler(evt) {
+function submitEditProfileForm(evt) {
   evt.preventDefault(); // отменяет стандартную отправку формы
   userName.textContent = nameInput.value;
   userJob.textContent = jobInput.value;
-  closePopup();
+  closePopup(popupElement);
 }
 
 // обработчик ф-ии сохранения карточки с данными
 popupElementCard.addEventListener("submit", handleFormSubmitCard);
 // обработчик для октрытия попапа добавления карточек
-addButton.addEventListener("click", function () {
+buttonOpenAddCardPopup.addEventListener("click", function () {
   openPopup(popupElementCard);
 });
 // обработчик события кнопки редактирования профиля
 // значения импутов = значениям в профиле
-editButton.addEventListener("click", function () {
+buttonOpenEditProfilePopup.addEventListener("click", function () {
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
   openPopup(popupElement);
 });
 // обработчик событий на все кнопки закрытия
-closeButton.forEach((allCloseButton) => {
-  allCloseButton.addEventListener("click", closePopup);
+buttonsClosePopup.forEach(function (element) {
+  const popup = element.closest(".popup");
+  element.addEventListener("click", function () {
+    closePopup(popup);
+  });
 });
-
 // обработчик сабмита профиля
-popupForm.addEventListener("submit", formSubmitHandler);
+formEditProfile.addEventListener("submit", submitEditProfileForm);
