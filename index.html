@@ -40,99 +40,7 @@
           ></button>
         </section>
         <section class="elements">
-          <ul class="elements__list">
-            <!--
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/Karachaevsk.jpg"
-                alt="Карачаевск"
-              />
-              <div class="element__info">
-                <h2 class="element__title">Карачаевск</h2>
-                <button
-                  class="element__like-button"
-                  type="button"
-                  title="Нравится"
-                ></button>
-              </div>
-            </li>
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/Elbrus.jpg"
-                alt="Эльбрус"
-              />
-              <div class="element__info">
-                <h2 class="element__title">Гора Эльбрус</h2>
-                <button
-                  class="element__like-button"
-                  type="button"
-                  title="Нравится"
-                ></button>
-              </div>
-            </li>
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/Dombai.jpg"
-                alt="Домбай"
-              />
-              <div class="element__info">
-                <h2 class="element__title">Домбай</h2>
-                <button
-                  class="element__like-button"
-                  type="button"
-                  title="Нравится"
-                ></button>
-              </div>
-            </li>
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/Elbrus.jpg"
-                alt="Эльбрус"
-              />
-              <div class="element__info">
-                <h2 class="element__title">Гора Эльбрус</h2>
-                <button
-                  class="element__like-button"
-                  type="button"
-                  title="Нравится"
-                ></button>
-              </div>
-            </li>
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/Dombai.jpg"
-                alt="Домбай"
-              />
-              <div class="element__info">
-                <h2 class="element__title">Домбай</h2>
-                <button
-                  class="element__like-button"
-                  type="button"
-                  title="Нравится"
-                ></button>
-              </div>
-            </li>
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/Karachaevsk.jpg"
-                alt="Карачаевск"
-              />
-              <div class="element__info">
-                <h2 class="element__title">Карачаево-Черкесия</h2>
-                <button
-                  class="element__like-button"
-                  type="button"
-                  title="Нравится"
-                ></button>
-              </div>
-            </li> -->
-          </ul>
+          <ul class="elements__list"></ul>
         </section>
       </main>
       <footer class="footer">
@@ -147,19 +55,33 @@
             title="Закрыть"
           ></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form" name="popup-form">
-            <input
-              class="popup__input popup__input_type_name"
-              type="text"
-              name="userName"
-              placeholder="Ваше имя"
-            />
-            <input
-              class="popup__input popup__input_type_job"
-              type="text"
-              name="userJob"
-              placeholder="Ваша работа"
-            />
+          <form class="popup__form" name="popup-form" novalidate>
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_type_name"
+                id="name-input"
+                type="text"
+                name="userName"
+                placeholder="Ваше имя"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="popup__input-error" id="name-input-error"></span>
+            </label>
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_type_job"
+                id="job-input"
+                type="text"
+                name="userJob"
+                placeholder="Ваша работа"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="popup__input-error" id="job-input-error"></span>
+            </label>
             <button
               class="popup__submit-button"
               type="submit"
@@ -179,25 +101,48 @@
             title="Закрыть"
           ></button>
           <h2 class="popup__title">Новое место</h2>
-          <form class="popup__form popup__form_card" name="popup-form-card">
-            <input
-              class="popup__input popup__input_type_card-name"
-              type="text"
-              name="name"
-              placeholder="Название"
-            />
-            <input
-              class="popup__input popup__input_type_card-link"
-              type="url"
-              name="link"
-              placeholder="Ссылка на картинку"
-            />
+          <form
+            class="popup__form popup__form_card"
+            name="popup-form-card"
+            novalidate
+          >
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_type_card-name"
+                id="card-name-input"
+                type="text"
+                name="cardName"
+                placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span
+                class="popup__input-error"
+                id="card-name-input-error"
+              ></span>
+            </label>
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_type_card-link"
+                id="card-link-input"
+                type="url"
+                name="cardLink"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span
+                class="popup__input-error"
+                id="card-link-input-error"
+              ></span>
+            </label>
             <button
-              class="popup__submit-button"
+              class="popup__submit-button popup__submit-button-card popup__submit-button_inactive"
               type="submit"
               title="Сохранить"
+              disabled
             >
-              Сохранить
+              Создать
             </button>
           </form>
         </div>
@@ -234,6 +179,7 @@
         </div>
       </li>
     </template>
+    <script src="./scripts/validate.js" type="module"></script>
     <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>
