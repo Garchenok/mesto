@@ -28,7 +28,7 @@ const popupInputTypeCardLink = popupElementCard.querySelector(
 const popupElementImage = document.querySelector(".popup_image");
 const popupImage = document.querySelector(".popup__image");
 const popupFigcaption = document.querySelector(".popup__figcaption");
-const SubmitButtonCard = document.querySelector(".popup__submit-button-card");
+const submitButtonCard = document.querySelector(".popup__submit-button-card");
 //для закрытия попапов
 const buttonClosePopupProfile = popupElementProfile.querySelector(
   ".popup__close-button"
@@ -95,12 +95,6 @@ initialCards.forEach(function (item) {
   renderElement(item, elementsList);
 });
 
-// ф-ия позволяет добавить disabled для кнопки при сбросе формы после успешной отправки
-function disabledSubmitButtonCard(btn) {
-  btn.classList.add("popup__submit-button_inactive");
-  btn.disabled = true;
-}
-
 // ф-ия сохранения карточки с данными в форму
 function handleFormSubmitCard(evt) {
   evt.preventDefault();
@@ -110,9 +104,8 @@ function handleFormSubmitCard(evt) {
     link: popupInputTypeCardLink.value,
   };
   renderElement(elementCard, elementsList);
-  popuFormCard.reset(); //сброс полей инпутов
   closePopup(popupElementCard);
-  disabledSubmitButtonCard(SubmitButtonCard);
+  popuFormCard.reset(); //сброс полей инпутов
 }
 
 // Закрытие попапа кликом на оверлей
@@ -160,6 +153,8 @@ popupElementImage.addEventListener("click", closeByClickOverlay);
 popupElementCard.addEventListener("submit", handleFormSubmitCard);
 // обработчик для октрытия попапа добавления карточек
 buttonOpenAddCardPopup.addEventListener("click", function () {
+  submitButtonCard.classList.add("popup__submit-button_inactive");
+  submitButtonCard.setAttribute("disabled", "disabled");
   openPopup(popupElementCard);
 });
 // обработчик события кнопки редактирования профиля

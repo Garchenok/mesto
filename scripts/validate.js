@@ -1,3 +1,4 @@
+// проверяем на валидность инпуты
 const checkInputValidity = (input, config) => {
   const error = document.querySelector(`#${input.id}-error`);
 
@@ -14,6 +15,7 @@ const checkInputValidity = (input, config) => {
   }
 };
 
+// логика работы кнопки сабмита
 const toggleButtonState = (inputs, button, config) => {
   const isFormValid = inputs.every((input) => input.validity.valid); //проверяем что каждый инпут валидный
 
@@ -21,15 +23,16 @@ const toggleButtonState = (inputs, button, config) => {
     //если каждый инпут массива возвращает true, то
     //активировать кнопку
     button.classList.remove(config.inactiveButtonClass);
-    button.disabled = "";
+    button.disabled = false;
   } else {
     //если каждый инпут массива возвращает false, то
     //деактивировать кнопку
     button.classList.add(config.inactiveButtonClass);
-    button.disabled = "disabled";
+    button.disabled = true;
   }
 };
 
+// запуск валидации
 const enableValidation = (config) => {
   const { formSelector, inputSelector, submitButtonSelector, ...restConfig } =
     config;
