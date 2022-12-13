@@ -17,7 +17,7 @@ const elementTemplate = document
   .querySelector("#element-template")
   .content.querySelector(".element");
 const popupElementCard = document.querySelector(".popup_card");
-const popuFormCard = popupElementCard.querySelector(".popup__form_card");
+const popupFormCard = popupElementCard.querySelector(".popup__form_card");
 const buttonOpenAddCardPopup = document.querySelector(".profile__add-button");
 const popupInputTypeCardName = popupElementCard.querySelector(
   ".popup__input_type_card-name"
@@ -105,7 +105,7 @@ function handleFormSubmitCard(evt) {
   };
   renderElement(elementCard, elementsList);
   closePopup(popupElementCard);
-  popuFormCard.reset(); //сброс полей инпутов
+  popupFormCard.reset(); //сброс полей инпутов
 }
 
 // Закрытие попапа кликом на оверлей
