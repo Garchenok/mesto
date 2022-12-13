@@ -45,6 +45,8 @@ const enableValidation = (config) => {
 
     form.addEventListener("submit", (evt) => {
       evt.preventDefault(); //когда у формы происходит сабмит отменяет отправку формы
+      button.disabled = true; //кнопка не активна после отправки формы
+      button.classList.add(config.inactiveButtonClass); //добавляет класс неактивной кнопки сабмита
     });
 
     inputs.forEach((input) => {

@@ -28,7 +28,9 @@ const popupInputTypeCardLink = popupElementCard.querySelector(
 const popupElementImage = document.querySelector(".popup_image");
 const popupImage = document.querySelector(".popup__image");
 const popupFigcaption = document.querySelector(".popup__figcaption");
-const submitButtonCard = document.querySelector(".popup__submit-button-card");
+const submitButtonProfile = document.querySelector(
+  ".popup__submit-button-profile"
+);
 //для закрытия попапов
 const buttonClosePopupProfile = popupElementProfile.querySelector(
   ".popup__close-button"
@@ -153,16 +155,16 @@ popupElementImage.addEventListener("click", closeByClickOverlay);
 popupElementCard.addEventListener("submit", handleFormSubmitCard);
 // обработчик для октрытия попапа добавления карточек
 buttonOpenAddCardPopup.addEventListener("click", function () {
-  submitButtonCard.classList.add("popup__submit-button_inactive");
-  submitButtonCard.setAttribute("disabled", "disabled");
   openPopup(popupElementCard);
 });
 // обработчик события кнопки редактирования профиля
 // значения импутов = значениям в профиле
 buttonOpenEditProfilePopup.addEventListener("click", function () {
+  openPopup(popupElementProfile);
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
-  openPopup(popupElementProfile);
+  submitButtonProfile.classList.remove("popup__submit-button_inactive");
+  submitButtonProfile.disabled = false;
 });
 // обработчики событий на кнопки закрытия попапов
 buttonClosePopupProfile.addEventListener("click", function () {
