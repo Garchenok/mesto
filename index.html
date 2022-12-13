@@ -47,7 +47,7 @@
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
       <!--Попап для редактирования профиля-->
-      <section class="popup popup_profile">
+      <div class="popup popup_profile">
         <div class="popup__container">
           <button
             class="popup__close-button"
@@ -91,9 +91,9 @@
             </button>
           </form>
         </div>
-      </section>
+      </div>
       <!--Попап для добавления карточек-->
-      <section class="popup popup_card">
+      <div class="popup popup_card">
         <div class="popup__container">
           <button
             class="popup__close-button"
@@ -146,39 +146,39 @@
             </button>
           </form>
         </div>
-      </section>
-    </div>
-    <!--Попап для для просмотра изображения-->
-    <section class="popup popup_image">
-      <figure class="popup__container-image">
-        <button
-          class="popup__close-button popup__close-button_image"
-          type="button"
-          title="Закрыть"
-        ></button>
-        <img class="popup__image" src="#" alt="" />
-        <figcaption class="popup__figcaption"></figcaption>
-      </figure>
-    </section>
-    <!--Темплейт для массива карточек-->
-    <template id="element-template">
-      <li class="element">
-        <button
-          class="element__delete-button"
-          type="button"
-          title="Удалить"
-        ></button>
-        <img class="element__image" src="#" alt="" />
-        <div class="element__info">
-          <h2 class="element__title"></h2>
+      </div>
+      <!--Попап для для просмотра изображения-->
+      <div class="popup popup_image">
+        <figure class="popup__container-image">
           <button
-            class="element__like-button"
+            class="popup__close-button popup__close-button_image"
             type="button"
-            title="Нравится"
+            title="Закрыть"
           ></button>
-        </div>
-      </li>
-    </template>
+          <img class="popup__image" src="#" alt="" />
+          <figcaption class="popup__figcaption"></figcaption>
+        </figure>
+      </div>
+      <!--Темплейт для массива карточек-->
+      <template id="element-template">
+        <li class="element">
+          <button
+            class="element__delete-button"
+            type="button"
+            title="Удалить"
+          ></button>
+          <img class="element__image" src="#" alt="" />
+          <div class="element__info">
+            <h2 class="element__title"></h2>
+            <button
+              class="element__like-button"
+              type="button"
+              title="Нравится"
+            ></button>
+          </div>
+        </li>
+      </template>
+    </div>
     <script src="./scripts/validate.js" type="module"></script>
     <script src="./scripts/index.js" type="module"></script>
   </body>
