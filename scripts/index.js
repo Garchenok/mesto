@@ -1,5 +1,6 @@
 import initialCards from "./constants.js";
-
+// import { resetSpanError, resetInputError } from "./validate.js";
+import { config, resetSpanError, resetInputError } from "./validate.js";
 // ----------------------------------------
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__edit-button"
@@ -163,8 +164,10 @@ buttonOpenEditProfilePopup.addEventListener("click", function () {
   openPopup(popupElementProfile);
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
-  submitButtonProfile.classList.remove("popup__submit-button_inactive");
-  submitButtonProfile.disabled = false;
+  resetSpanError(config);
+  resetInputError(config);
+  submitButtonProfile.classList.remove("popup__submit-button_inactive"); // при открытии удаляет инактив класс
+  submitButtonProfile.disabled = false; //при открытии дает возможность отправки формы, т.к. поля ВАЛИДНЫ
 });
 // обработчики событий на кнопки закрытия попапов
 buttonClosePopupProfile.addEventListener("click", function () {

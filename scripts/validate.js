@@ -1,70 +1,111 @@
-// проверяем на валидность инпуты
-const checkInputValidity = (input, config) => {
-  const error = document.querySelector(`#${input.id}-error`);
+/* Разбивка кода на ф-ии согласно рекомендациям ревьюера */
+// export { resetSpanError, resetInputError };
 
-  if (input.validity.valid) {
-    // если true убрать ошибку
-    error.textContent = "";
-    error.classList.remove(config.errorClass);
-    input.classList.remove(config.inputErrorClass);
+// перебираем массив, что бы найти поля которые не прошли валидацию
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+// ф-ия отвечающая за блокировку кнопки Отправить(Создать)
+const toggleButtonState = (inputList, buttonElement, config) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = true;
   } else {
-    // если false показать ошибку
-    error.textContent = input.validationMessage;
-    error.classList.add(config.errorClass);
-    input.classList.add(config.inputErrorClass);
+    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = false;
   }
 };
 
-// логика работы кнопки сабмита
-const toggleButtonState = (inputs, button, config) => {
-  const isFormValid = inputs.every((input) => input.validity.valid); //проверяем что каждый инпут валидный
+// добавляем ошибку в инпуты
+// передаем событию input класс
+const showInputError = (formElement, inputElement, errorMessage, config) => {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.add(config.inputErrorClass);
+  // Устанавливаем errorMessage в качестве значения textContent для formError
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(config.errorClass);
+};
 
-  if (isFormValid) {
-    //если каждый инпут массива возвращает true, то
-    //активировать кнопку
-    button.classList.remove(config.inactiveButtonClass);
-    button.disabled = false;
+// удаляем ошибку из инпутов
+const hideInputError = (formElement, inputElement, config) => {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.classList.remove(config.errorClass);
+  errorElement.textContent = "";
+};
+
+// проверяем formInput на коректность введенных данных и вызываем showError или hideError
+const checkInputValidity = (formElement, inputElement, config) => {
+  if (!inputElement.validity.valid) {
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      config
+    ); //Передаем сообщение об ошибке
   } else {
-    //если каждый инпут массива возвращает false, то
-    //деактивировать кнопку
-    button.classList.add(config.inactiveButtonClass);
-    button.disabled = true;
+    hideInputError(formElement, inputElement, config);
   }
 };
 
-// запуск валидации
-const enableValidation = (config) => {
-  const { formSelector, inputSelector, submitButtonSelector, ...restConfig } =
-    config;
+//слушатель который добавляет сообщения об ошибках в инпуты
+const setEventListeners = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  const forms = [...document.querySelectorAll(formSelector)];
-
-  forms.forEach((form) => {
-    const inputs = [...form.querySelectorAll(inputSelector)];
-    const button = form.querySelector(submitButtonSelector);
-
-    form.addEventListener("submit", (evt) => {
-      evt.preventDefault(); //когда у формы происходит сабмит отменяет отправку формы
-      button.disabled = true; //кнопка не активна после отправки формы
-      button.classList.add(config.inactiveButtonClass); //добавляет класс неактивной кнопки сабмита
-    });
-
-    inputs.forEach((input) => {
-      input.addEventListener("input", () => {
-        checkInputValidity(input, restConfig);
-        toggleButtonState(inputs, button, restConfig);
-      });
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(formElement, inputElement, config);
+      toggleButtonState(inputList, buttonElement, config);
     });
   });
 };
 
-const config = {
+//ф-ия сбрасывает текстовые ошибки в спанах
+export const resetSpanError = (config) => {
+  const spanError = Array.from(
+    document.querySelectorAll(config.inputErrorSpan)
+  );
+  spanError.forEach((error) => {
+    error.textContent = "";
+  });
+};
+//ф-ия сбрасыает подчеркивание в инпуте
+export const resetInputError = (config) => {
+  const inputError = Array.from(
+    document.querySelectorAll(config.inputSelector)
+  );
+  inputError.forEach((error) => {
+    error.classList.remove(config.inputErrorClass);
+  });
+};
+// валидация всех форм
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const button = formElement.querySelector(config.submitButtonSelector);
+    formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault;
+      button.disabled = true; //кнопка не активна после отправки формы
+      button.classList.add(config.inactiveButtonClass); //добавляет класс неактивной кнопки сабмита
+    });
+    setEventListeners(formElement, config);
+  });
+};
+
+export const config = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__submit-button",
   inactiveButtonClass: "popup__submit-button_inactive",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_active",
+  inputErrorSpan: ".popup__input-error",
 };
 
 enableValidation(config);
