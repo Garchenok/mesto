@@ -1,6 +1,7 @@
 import initialCards from "./constants.js";
 // import { resetSpanError, resetInputError } from "./validate.js";
-import { config, resetSpanError, resetInputError } from "./validate.js";
+// import { config, resetSpanError, resetInputError } from "./validate.js";
+import { config, resetErrorsCurrentForm } from "./validate.js";
 // ----------------------------------------
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__edit-button"
@@ -164,8 +165,12 @@ buttonOpenEditProfilePopup.addEventListener("click", function () {
   openPopup(popupElementProfile);
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
-  resetSpanError(config);
-  resetInputError(config);
+  resetErrorsCurrentForm(formEditProfile, config); //сбрасывает ошибки с текущей
+  //формы, это нужно чтобы не было вот такого результата, когда закрывается
+  //невалидная форма, а при следующем открытии форма вроде бы заполнена
+  //корректно, но подсвечивается ошибка с прошлого раза
+  // resetSpanError(config);
+  // resetInputError(config);
   submitButtonProfile.classList.remove("popup__submit-button_inactive"); // при открытии удаляет инактив класс
   submitButtonProfile.disabled = false; //при открытии дает возможность отправки формы, т.к. поля ВАЛИДНЫ
 });

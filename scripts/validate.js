@@ -57,43 +57,62 @@ const setEventListeners = (formElement, config) => {
     formElement.querySelectorAll(config.inputSelector)
   );
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, config); // деактивируем кнопку при 1й загрузке
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(inputList, buttonElement, config);
+      formElement.addEventListener("reset", function () {
+        setTimeout(() => {
+          // setTimeout применяется, что бы дождаться очищения формы
+          toggleButtonState(inputList, buttonElement, config);
+        }, 0); // 0 млс и после reset сработает деактивация кнопки
+      });
     });
   });
 };
 
+// ф-ия которая будет сбрасывать ошибки с текущей формы
+// (експортирована и вызвана в обработчик открытия модального окна)
+export const resetErrorsCurrentForm = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, config);
+  });
+};
 //ф-ия сбрасывает текстовые ошибки в спанах
-export const resetSpanError = (config) => {
-  const spanError = Array.from(
-    document.querySelectorAll(config.inputErrorSpan)
-  );
-  spanError.forEach((error) => {
-    error.textContent = "";
-  });
-};
+// export const resetSpanError = (config) => {
+//   const spanError = Array.from(
+//     document.querySelectorAll(config.inputErrorSpan)
+//   );
+//   spanError.forEach((error) => {
+//     error.textContent = "";
+//   });
+// };
 //ф-ия сбрасыает подчеркивание в инпуте
-export const resetInputError = (config) => {
-  const inputError = Array.from(
-    document.querySelectorAll(config.inputSelector)
-  );
-  inputError.forEach((error) => {
-    error.classList.remove(config.inputErrorClass);
-  });
-};
+// export const resetInputError = (config) => {
+//   const inputError = Array.from(
+//     document.querySelectorAll(config.inputSelector)
+//   );
+//   inputError.forEach((error) => {
+//     error.classList.remove(config.inputErrorClass);
+//   });
+// };
 // валидация всех форм
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    const button = formElement.querySelector(config.submitButtonSelector);
-    formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault;
-      button.disabled = true; //кнопка не активна после отправки формы
-      button.classList.add(config.inactiveButtonClass); //добавляет класс неактивной кнопки сабмита
-    });
+    // Отменять дефолтное поведение формы не нужно, это реализовано в index.js
+    // в соответствующих ф-ях сохранения карточки и данных профиля
+    // const button = formElement.querySelector(config.submitButtonSelector);
+    // formElement.addEventListener("submit", (evt) => {
+    //   evt.preventDefault;
+    //   // button.disabled = true; //кнопка не активна после отправки формы
+    //   // button.classList.add(config.inactiveButtonClass); //добавляет класс неактивной кнопки сабмита
+    // });
     setEventListeners(formElement, config);
   });
 };
@@ -105,7 +124,6 @@ export const config = {
   inactiveButtonClass: "popup__submit-button_inactive",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_active",
-  inputErrorSpan: ".popup__input-error",
 };
 
 enableValidation(config);
