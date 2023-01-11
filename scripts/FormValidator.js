@@ -65,12 +65,7 @@ export class FormValidator {
   };
 
   //приватный слушатель который добавляет сообщения об ошибках
-
   _setEventListeners = () => {
-    // const inputList = Array.from(
-    //   this._formElement.querySelectorAll(config.inputSelector)
-    // );
-    // const buttonElement = this._formElement.querySelector(config.submitButtonSelector);
     this._toggleButtonState(); // деактивируем кнопку при 1й загрузке
 
     this._inputList.forEach((inputElement) => {
@@ -89,12 +84,16 @@ export class FormValidator {
 
   //публичный метод который будет сбрасывать ошибки с текущей формы
   resetErrorsCurrentForm() {
-    // const inputList = Array.from(
-    //   this._formElement.querySelectorAll(this._inputSelector)
-    // );
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
+  }
+
+  //публичный метод который при открытии удаляет инактив класс
+  //и дает возможность отправки формы, т.к. поля ВАЛИДНЫ
+  disableSubmitButton() {
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+    this._buttonElement.disabled = false;
   }
 
   //публичный метод который включает валидацию
@@ -102,12 +101,3 @@ export class FormValidator {
     this._setEventListeners();
   };
 }
-
-export const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__submit-button",
-  inactiveButtonClass: "popup__submit-button_inactive",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__input-error_active",
-};
